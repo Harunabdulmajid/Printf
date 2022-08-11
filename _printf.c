@@ -1,17 +1,22 @@
 #include "main.h"
+
 void cleanup(va_list args, buffer_t *output);
 int run_printf(const char *format, va_list args, buffer_t *output);
 int _printf(const char *format, ...);
+
 /**
  * cleanup - Peforms cleanup operations for _printf.
  * @args: A va_list of arguments provided to _printf.
  * @output: A buffer_t struct.
  */
+
 void cleanup(va_list args, buffer_t *output)
+
 {
 va_end(args);
 write(1, output->start, output->len);
 free_buffer(output); }
+
 /**
  * run_printf - Reads through the format string for _printf.
  * @format: Character string to print - may contain directives.
@@ -20,12 +25,15 @@ free_buffer(output); }
  *
  * Return: The number of characters stored to output.
  */
+
 int run_printf(const char *format, va_list args, buffer_t *output)
-{ int i, wid, prec, ret = 0;
+{ 
+int i, wid, prec, ret = 0;
 char tmp;
 unsigned char flags, len;
 unsigned int (*f)(va_list, buffer_t *,
 unsigned char, int, int, unsigned char);
+
 for (i = 0; *(format + i); i++)
 { len = 0;
 if (*(format + i) == '%')
@@ -48,16 +56,19 @@ ret += _memcpy(output, (format + i), 1);
 i += (len != 0) ? 1 : 0; }
 cleanup(args, output);
 return (ret); }
+
 /**
  * _printf - Outputs a formatted string.
  * @format: Character string to print - may contain directives.
  *
  * Return: The number of characters printed.
  */
+
 int _printf(const char *format, ...)
 { buffer_t *output;
 va_list args;
 int ret;
+
 if (format == NULL)
 return (-1);
 output = init_buffer();
